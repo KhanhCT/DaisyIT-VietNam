@@ -20,7 +20,7 @@ public class HibernateDepartmentDAO implements DepartmentDAO{
 	 * @param sessionFactory
 	 */
 	public void setSession(Session session) {
-		Log.setLogTitle(this.getClass().toString());
+		Log.setLog(this.getClass().toString());
 		this.session = session;
 	}
 	@Override
@@ -65,7 +65,7 @@ public class HibernateDepartmentDAO implements DepartmentDAO{
 			deptId = (Integer) query.uniqueResult();
 			trans.commit();
 		} catch (RuntimeException e) {
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError(e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}

@@ -43,8 +43,8 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=nsrp</property>
-    <property name="hibernate.connection.username">NSRP</property>
-    <property name="hibernate.connection.password">Hanoi@123</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">root</property>
     <mapping resource="com/daisyit/db/Staff.hbm.xml"/>
     <mapping resource="com/daisyit/db/Department.hbm.xml"/>
   </session-factory>

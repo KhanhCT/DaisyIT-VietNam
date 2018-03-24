@@ -25,12 +25,11 @@ public class Ftp {
 	private String ftpUsername;
 	private String ftpPassword;
 	private FTPClient ftpClient;
-	// private Log log = new Log(this.getClass().getName());
 
 	public Ftp(String ftpServer, String ftpUsername, String ftpPassword, int ftpPort) {
 		boolean status;
 		int replyCode;
-		Log.setLogTitle(this.getClass().toString());
+		Log.setLog(this.getClass().toString());
 		FTPClientConfig ftpClientConfig = new FTPClientConfig(FTPClientConfig.SYST_NT);
 		ftpClientConfig.setServerTimeZoneId("Asia/Saigon");
 		ftpClient = new FTPClient();
@@ -42,36 +41,35 @@ public class Ftp {
 			ftpClient.setAutodetectUTF8(true);
 			replyCode = ftpClient.getReplyCode();
 			if (!FTPReply.isPositiveCompletion(replyCode)) {
-				if (Common.DEBUG)
-					Common.print("Ftp()", "FTP Server refuse connection!!");
-					Log.writeLogError(this.getClass().toString(), "FTP Server refuse connection!!");
+
+				Log.printInfor("FTP Server refuse connection!!");
+				Log.writeLogError("FTP Server refuse connection!!");
 				ftpClient.disconnect();
 			}
-			
+
 			status = ftpClient.login(ftpUsername, ftpPassword);
 			if (!status) {
-				Common.print("Ftp()", "Username or password incorrect!!");
-				Log.writeLogWarning(this.getClass().toString(), "Username or password incorrect!!");
+				Log.printInfor("Username or password incorrect!!");
+				Log.writeLogWarning("Username or password incorrect!!");
 				ftpClient.disconnect();
-				//System.exit(0);
+				// System.exit(0);
 			}
-			
 
 			ftpClient.setFileType(FTP.ASCII_FILE_TYPE);
 			ftpClient.enterLocalPassiveMode();
 			ftpClient.setKeepAlive(true);
 			ftpClient.setControlKeepAliveTimeout(100000);
-			
-		//	String encoded = new String(utf8_path.getBytes("UTF-8"), "ISO-8859-1");
-			//ftpClient.changeWorkingDirectory(utf8_path);
+
+			// String encoded = new String(utf8_path.getBytes("UTF-8"), "ISO-8859-1");
+			// ftpClient.changeWorkingDirectory(utf8_path);
 			if (ftpClient.isConnected()) {
-				Log.writeLogInfo(this.getClass().toString(), "FTP connected!!");
-				Common.print("Ftp()", "FTP connected!!");
+				Log.writeLogInfo("FTP connected!!");
+				Log.printInfor("FTP connected!!");
 			}
 
 		} catch (IOException e) {
-			Log.writeLogInfo(this.getClass().toString(), "Oops! Ftp disconnected");
-			Common.print("Ftp()", "Oops! Ftp disconnected: " + e.getMessage());
+			Log.writeLogInfo("Oops! Ftp disconnected");
+			Log.printInfor("Oops! Ftp disconnected: " + e.getMessage());
 		}
 
 	}
@@ -81,29 +79,29 @@ public class Ftp {
 		OutputStream outputStream;
 		try {
 			outputStream = new BufferedOutputStream(new FileOutputStream(localfile));
-		
-	        boolean success = ftpClient.retrieveFile(source, outputStream);
-	        if (success) 
-	        	Common.print("Ftp()","Ftp file successfully download.");
-	        outputStream.close();
+
+			boolean success = ftpClient.retrieveFile(source, outputStream);
+			if (success)
+				Log.printInfor("Ftp file successfully download.");
+			outputStream.close();
 		} catch (IOException ex) {
 			// TODO Auto-generated catch block
-			Common.print("Ftp()","Error occurs in downloading files from ftp Server : " + ex.getMessage());
+			Log.printInfor("Error occurs in downloading files from ftp Server : " + ex.getMessage());
 		}
 
-//		try (FileOutputStream fos = new FileOutputStream(destination)) {
-//			ftpClient.retrieveFile(source, fos);
-//			fos.flush();
-//			fos.close();
-//			System.out.println("FTP download file successfull!!");
-//		} catch (IOException ex) {
-//			// if (Common.DEBUG)
-//			System.out.println("Can not download file on FTP Server");
-//			// log.writeLogError("ftpDownloadFile()", " Can not download file on FTP
-//			// Server");
-//		}finally {
-//			
-//		}
+		// try (FileOutputStream fos = new FileOutputStream(destination)) {
+		// ftpClient.retrieveFile(source, fos);
+		// fos.flush();
+		// fos.close();
+		// System.out.println("FTP download file successfull!!");
+		// } catch (IOException ex) {
+		// // if (Common.DEBUG)
+		// System.out.println("Can not download file on FTP Server");
+		// // log.writeLogError("ftpDownloadFile()", " Can not download file on FTP
+		// // Server");
+		// }finally {
+		//
+		// }
 	}
 
 	public void ftpDeleteFile(String urlFile) {
@@ -178,7 +176,7 @@ public class Ftp {
 		List<String> list = null;
 		if (ftpClient.isConnected()) {
 			list = new ArrayList<>();
-			String fileName = null;	
+			String fileName = null;
 			try {
 				FTPFile[] files = ftpClient.listFiles(path);
 				for (FTPFile file : files) {
@@ -188,7 +186,7 @@ public class Ftp {
 
 			} catch (IOException e) {
 				// if (Common.DEBUG)
-				 Log.writeLogError("listFile()", "Oops! Can not get file from FTP " + e.getMessage());
+				Log.writeLogError("Oops! Can not get file from FTP " + e.getMessage());
 			}
 		}
 		return list;

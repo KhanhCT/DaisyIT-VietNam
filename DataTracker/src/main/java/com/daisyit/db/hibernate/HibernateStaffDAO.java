@@ -20,7 +20,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 	 * @param sessionFactory
 	 */
 	public void setSession(Session session) {
-		Log.setLogTitle(this.getClass().toString());
+		Log.setLog(this.getClass().toString());
 		this.session = session;
 	}
 	
@@ -37,7 +37,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 			staff = (Staff) query.uniqueResult();
 			trans.commit();
 		} catch (RuntimeException e) {
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError( e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}
@@ -58,7 +58,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 			staffs = query.list();		
 			trans.commit();
 		} catch (RuntimeException e) {
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError( e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}
@@ -76,7 +76,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 			trans.commit();
 		}catch (RuntimeException e) {
 			// TODO: handle exception
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError( e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}
@@ -93,7 +93,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 			this.session.saveOrUpdate(staff);
 			trans.commit();
 		}catch (RuntimeException e) {
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError( e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}
@@ -117,7 +117,7 @@ public class HibernateStaffDAO implements StaffDAO  {
 			trans.commit();
 		}catch (RuntimeException e) {
 			// TODO: handle exception
-			Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+			Log.writeLogError( e.getMessage());
 			if (trans != null) {
 				trans.rollback();
 			}

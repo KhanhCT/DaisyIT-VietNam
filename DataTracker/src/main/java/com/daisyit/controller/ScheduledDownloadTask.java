@@ -21,7 +21,7 @@ public class ScheduledDownloadTask extends TimerTask {
 
 	@Override
 	public void run() {
-		Log.setLogTitle(this.getClass().toString());
+		Log.setLog(this.getClass().toString());
 		String ftpServer = null;
 		int ftpPort = ConfigTag.DEFAULT_PORT;
 		String ftpUsername = null;
@@ -42,19 +42,17 @@ public class ScheduledDownloadTask extends TimerTask {
 			ftpPort = Integer.parseInt(configs.get(ConfigTag.FTP_PORT));
 			hostDir = configs.get(ConfigTag.FTP_INDIR);
 		} catch (NullPointerException ex) {
-			Log.writeLogError(this.getClass().toString(), ex.getMessage());
-			Common.print(this.getClass().toString(), "Oops! System get some problems.");
+			Log.writeLogError( ex.getMessage());
 		} catch (IOException e) {
-			Log.writeLogError(this.getClass().toString(), e.getMessage());
-			Common.print(this.getClass().toString(), "Oops! System get some problems. Please see the config files");
+			Log.writeLogError( e.getMessage());
 		}
 		ftp = new Ftp(ftpServer, ftpUsername, ftpPassword, ftpPort);
 		if (ftp.isConnected()) {
 			currentFiles = ftp.listFile(hostDir);
 			if (currentFiles.toString() != "[]") {
 				// if (currentFiles.size() != preFiles.size()) {
-				Common.print("ScheduledDownloadTask()", "New files on FTP server created or deleted");
-				Log.writeLogInfo(this.getClass().toString(), "New files on FTP server created or deleted");
+				Log.printInfor("New files on FTP server created or deleted");
+				Log.writeLogInfo( "New files on FTP server created or deleted");
 				// tempFiles.clear();
 				// for (String str : currentFiles)
 				// tempFiles.add(str);
@@ -95,12 +93,12 @@ public class ScheduledDownloadTask extends TimerTask {
 
 						File f = new File(path);
 						if (f.delete()) {
-							Common.print("ScheduledDownloadTask()", f.getName() + " is deleted!");
+							Log.printInfor(f.getName() + " is deleted!");
 						} else {
-							Common.print("ScheduledDownloadTask()", "Delete operation is failed.");
+							Log.printInfor("Delete operation is failed.");
 						}
 					} catch (Exception e) {
-						Log.writeLogError(this.getClass().getMethods().toString(), e.getMessage());
+						Log.writeLogError( e.getMessage());
 						e.printStackTrace();
 					}
 				}

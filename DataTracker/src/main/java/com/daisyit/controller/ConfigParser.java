@@ -8,12 +8,14 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Properties;
 import com.daisyit.controller.ConfigTag;
+import com.daisyit.utils.Log;
 
 public class ConfigParser {
 	InputStream inputStream;
 	Properties prop ;
 	public ConfigParser()
 	{
+		Log.setLog(this.getClass().toString());
 		prop = new Properties();
 		String workingDir = System.getProperty("user.dir");
 		File file = null;
@@ -31,10 +33,10 @@ public class ConfigParser {
 				prop.load(inputStream);
 			}
 		} catch (FileNotFoundException e) {
-			Common.print("ConfigParser", e.getMessage());
+			Log.printInfor(e.getMessage());
 		}
 		catch (IOException e) {
-			Common.print("ConfigParser", e.getMessage());
+			Log.printInfor(e.getMessage());
 		}
 	}
 	public Long getTimePoll()  throws IOException
@@ -45,7 +47,7 @@ public class ConfigParser {
 			String tmp = prop.getProperty(ConfigTag.TIME_SCHEDULER);
 			timePoll = Long.parseLong(tmp);			
 		} catch (Exception e) {
-			Common.print("ConfigParser", e.getMessage());
+			Log.printInfor(e.getMessage());
 		} finally {
 			inputStream.close();
 		}
@@ -67,7 +69,7 @@ public class ConfigParser {
 			result.put(ConfigTag.FTP_PORT, ftpPort);
 			result.put(ConfigTag.FTP_INDIR, ftpDir);
 		} catch (Exception e) {
-			Common.print("ConfigTag", e.getMessage());
+			Log.printInfor(e.getMessage());
 		} finally {
 			inputStream.close();
 		}
