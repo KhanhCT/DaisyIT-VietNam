@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2018 2:44:46 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.daisyit.entity.Staff" table="Staff" schema="dbo" catalog="nsrp" optimistic-lock="version">
+        <id name="staffId" type="string">
+            <column name="StaffId" length="12" />
+            <generator class="assigned" />
+        </id>
+        <property name="staffName" type="string">
+            <column name="StaffName" length="50" not-null="true" />
+        </property>
+        <property name="jobTitle" type="string">
+            <column name="JobTitle" length="100" />
+        </property>
+        <property name="address" type="string">
+            <column name="Address" />
+        </property>
+        <property name="phoneNum" type="string">
+            <column name="PhoneNum" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="50" />
+        </property>
+        <property name="deptId" type="int">
+            <column name="DeptId" not-null="true" />
+        </property>
+        <property name="gender" type="string">
+            <column name="Gender" length="10" />
+        </property>
+        <property name="cardId" type="string">
+            <column name="CardId" length="12" />
+        </property>
+        <property name="disable" type="boolean">
+            <column name="Disable" not-null="true" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="Age" />
+        </property>
+        <property name="position" type="string">
+            <column name="Position" length="60" />
+        </property>
+        <property name="provice" type="string">
+            <column name="Provice" length="60" />
+        </property>
+        <property name="nationality" type="string">
+            <column name="Nationality" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>

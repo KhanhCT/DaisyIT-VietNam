@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2018 2:44:46 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.daisyit.entity.Department" table="Department" schema="dbo" catalog="nsrp" optimistic-lock="version">
+        <id name="deptId" type="int">
+            <column name="DeptId" />
+            <generator class="assigned" />
+        </id>
+        <property name="deptName" type="string">
+            <column name="DeptName" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="Description" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>
